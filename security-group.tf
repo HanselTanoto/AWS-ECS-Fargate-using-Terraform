@@ -6,6 +6,7 @@ resource "aws_security_group" "lb_security_group" {
     name        = "lb-security-group"
     description = "lb_security_group"
     vpc_id      = aws_vpc.vpc.id
+    # Allow inbound traffic from the internet on port 80 (HTTP)
     ingress {
         from_port   = 80
         to_port     = 80

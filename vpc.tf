@@ -57,7 +57,7 @@ resource "aws_route_table_association" "public_subnet_route_table_association" {
 # Create Elastic IP for NAT Gateway.
 # Elastic IP is a static IPv4 address designed for dynamic cloud computing.
 resource "aws_eip" "nat_eip" {
-    count = length(var.public_subnet_cidrs)
+    count = length(var.private_subnet_cidrs)
     vpc   = true
 }
 
@@ -65,9 +65,10 @@ resource "aws_eip" "nat_eip" {
 # NAT Gateway is a managed service that makes it easy to connect to the 
 # internet from instances within a private subnet in an AWS VPC.
 resource "aws_nat_gateway" "nat_gateway" {
-    count           = length(var.public_subnet_cidrs)
+    count           = length(var.private_subnet_cidrs)
     allocation_id   = aws_eip.nat_eip[count.index].id
     subnet_id       = aws_subnet.public_subnet[count.index].id
+    depends_on      = [aws_internet_gateway.internet_gateway]
 }
 
 # Create Private Route Table and add private route

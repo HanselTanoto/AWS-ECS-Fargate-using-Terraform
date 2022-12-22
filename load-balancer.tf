@@ -9,7 +9,7 @@ resource "aws_lb" "lb" {
     load_balancer_type = "application"
     security_groups    = [aws_security_group.lb_security_group.id]
     subnets            = aws_subnet.public_subnet[*].id
-    tags               = {
+    tags = {
         Name = "lb"
     }
 }
@@ -17,7 +17,7 @@ resource "aws_lb" "lb" {
 # Create a listener for the load balancer
 resource "aws_lb_listener" "lb_listener" {
     load_balancer_arn = aws_lb.lb.arn
-    port              = "80"
+    port              = 80
     protocol          = "HTTP"
     default_action {
         type             = "forward"
@@ -33,10 +33,16 @@ resource "aws_lb_target_group" "lb_target_group" {
     target_type = "ip"
     vpc_id      = aws_vpc.vpc.id
     health_check {
-        matcher = "200"
-        path    = "/"
+        healthy_threshold   = "3"
+        interval            = "30"
+        protocol            = "HTTP"
+        timeout             = "3"
+        unhealthy_threshold = "2"
+        matcher             = "200"
+        path                = "/"
     }
-    tags        = {
+    tags = {
         Name = "lb_target_group"
     }
 }
+
