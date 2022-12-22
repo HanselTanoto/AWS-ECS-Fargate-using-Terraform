@@ -1,5 +1,5 @@
-# AWS ECS Fargate behind Application Load Balancer
-An Amazon ECS Cluster using Fargate launch type behind an application load balancer implemented in Terraform
+# AWS ECS Fargate
+Amazon ECS Cluster using Fargate launch type behind an application load balancer implemented in Terraform
 
 ## Resources
 - VPC (Virtual Private Cloud)
@@ -28,7 +28,7 @@ An Amazon ECS Cluster using Fargate launch type behind an application load balan
 - Execute `terraform init` in your CLI to initialize your Terraform.
 - Execute `terraform apply -var-file="keys.tfvars"` to execute the program.
 
-Then, the infrastructure has been successfully built. To destroy all resources, execute `terraform destroy -var-file="secret.tfvars"`.
+Then, the infrastructure has been successfully built. To destroy all resources, execute `terraform destroy -var-file="keys.tfvars"`.
 
 ## Created by
 [Hansel Valentino Tanoto](https://github.com/HanselTanoto) - K02 - 13520046
